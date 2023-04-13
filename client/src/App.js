@@ -1,8 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import CreateForm from "./CreateForm";
+import CreateDialog from "./CreateDialog";
 import Recipe from "./Recipe";
-import EditForm from "./EditForm";
+import EditDialog from "./EditDialog";
 import { NotificationContainer } from "react-notifications";
 import "./App.css";
 
@@ -112,12 +112,12 @@ const App = (props) => {
       <div className="App-body">
         {createFormOpen && (
           <dialog open>
-            <CreateForm setOpen={setCreateFormOpen} callAPI={callAPI} />
+            <CreateDialog setOpen={setCreateFormOpen} callAPI={callAPI} />
           </dialog>
         )}
         {editId && (
           <dialog open>
-            <EditForm id={editId} setId={setEditId} callAPI={callAPI} />
+            <EditDialog id={editId} setId={setEditId} callAPI={callAPI} />
           </dialog>
         )}
         <div style={{justifyContent: 'space-between'}}>

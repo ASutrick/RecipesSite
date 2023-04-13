@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {NotificationManager} from 'react-notifications';
-const CreateForm = (props) => {
+const CreateDialog = (props) => {
   const { setOpen, callAPI } = props;
   const initialValues = {
     Name: "",
@@ -198,4 +198,4 @@ const CreateForm = (props) => {
     </div>
   );
 };
-export default CreateForm;
+export default CreateDialog;

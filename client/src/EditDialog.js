@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NotificationManager } from "react-notifications";
-const EditForm = (props) => {
+const EditDialog = (props) => {
   const { id, setId, callAPI } = props;
   const [image, setImage] = useState("");
   const [imageIsBase64, setImageIsBase64] = useState(true);
@@ -266,4 +266,4 @@ const EditForm = (props) => {
     </div>
   );
 };
-export default EditForm;
+export default EditDialog;
