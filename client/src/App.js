@@ -45,7 +45,7 @@ const App = (props) => {
         {data && (
           data.map((d, index) => {
             return(
-              <Recipe onClick={()=>{setEditId(d._id)}} key={index} Id={d._id}Name={d.Name} Image={d.Image.data} Type={d.Type} Ingredients={d.Ingredients}/>
+              <Recipe key={index} Id={d._id} setEditId={setEditId} Name={d.Name} Image={d.Image.data} Type={d.Type} Ingredients={d.Ingredients}/>
             )
           })
         )}</div>

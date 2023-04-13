@@ -5,8 +5,8 @@ const Recipe = (props) => {
         Type,
         Id,
         Image,
-        onClick,
         Ingredients,
+        setEditId,
     } = props;
     const[image, setImage] = useState(null);
     const toBase64 = (data) => {
@@ -22,7 +22,10 @@ const Recipe = (props) => {
     useEffect(() => {
         const b64 = toBase64(Image);
         setImage(b64);
-    },[])
+    },[Image])
+    const onClick = () => {
+        setEditId(Id);
+    }
     return(
         <div onClick={onClick} style={{display:'flex', flexDirection: 'column', alignItems:'center'}}>
             <img

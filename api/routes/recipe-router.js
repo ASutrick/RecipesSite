@@ -71,6 +71,27 @@ const Create = (app) => {
         res.sendStatus(200);
     })
 }
+const Update = (app) => {
+    app.put('/api/recipes/:id', async (req,res) => {
+        const newData = req.body;
+        const resp = await Recipe.updateOne({_id: req.params.id}, {Name: newData.Name, Type: newData.Type, Ingredients: newData.Ingredients});
+        if(!resp.acknowledged){
+           res.sendStatus(500) 
+        }
+        res.sendStatus(200);
+    })
+}
+    const UpdateWithImage = (app) => {
+        app.put('/api/recipes/with-image/:id', async (req,res) => {
+            const newData = req.body;
+            const newImage = Buffer.from(newData.Image, 'base64');
+            const resp = await Recipe.updateOne({_id: req.params.id}, {Name: newData.Name, Type: newData.Type, Image: newImage, Ingredients: newData.Ingredients});
+            if(!resp.acknowledged){
+               res.sendStatus(500) 
+            }
+            res.sendStatus(200);
+        })
+}
 
 module.exports = {
     ReadAll,
@@ -79,4 +100,6 @@ module.exports = {
     ReadOneByName,
     Create,
     ReadOneByID,
+    Update,
+    UpdateWithImage,
 }

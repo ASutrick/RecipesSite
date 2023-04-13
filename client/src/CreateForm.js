@@ -83,7 +83,6 @@ const CreateForm = (props) => {
 
   const handleSubmit = async () => {
     const fuckyou = await toBase64(image);
-    console.log(fuckyou);
     if(hasEmptyFields()) 
     {
         NotificationManager.warning("Fill out all Fields");
