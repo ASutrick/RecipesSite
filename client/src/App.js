@@ -2,15 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import CreateForm from "./CreateForm";
 import Recipe from "./Recipe";
-import logo from './logo.svg';
-import { Buffer } from "buffer";
+import EditForm from './EditForm';
 import {NotificationContainer} from 'react-notifications';
 import './App.css';
 
 const App = (props) => {
   const [data, setData] = useState(null);
   const [createFormOpen, setCreateFormOpen] = useState(false);
-
+  const [editId, setEditId] = useState(null);
   const callAPI = async () => {
     const options = {
       method: 'GET',
@@ -39,13 +38,14 @@ const App = (props) => {
     <div className="App">
       <header className="App-header">
         {createFormOpen && (<dialog open><CreateForm setOpen={setCreateFormOpen} callAPI={callAPI}/></dialog>)}
+        {editId && (<dialog open><EditForm id={editId} setId={setEditId} callAPI={callAPI}/></dialog>)}
         <button onClick={openCreateForm}>Create New Recipe</button>
         <br/>
         <div style={{display:'flex'}}>
         {data && (
           data.map((d, index) => {
             return(
-              <Recipe onClick={()=>{console.log(d._id)}} key={index} Id={d._id}Name={d.Name} Image={d.Image.data} Type={d.Type} Ingredients={d.Ingredients}/>
+              <Recipe onClick={()=>{setEditId(d._id)}} key={index} Id={d._id}Name={d.Name} Image={d.Image.data} Type={d.Type} Ingredients={d.Ingredients}/>
             )
           })
         )}</div>
