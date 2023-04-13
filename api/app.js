@@ -35,6 +35,7 @@ recipeRouter.ReadAll(app);
 recipeRouter.ReadAllByIngredient(app);
 recipeRouter.ReadOneByName(app);
 recipeRouter.ReadOneByID(app);
+recipeRouter.ReadAllByType(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

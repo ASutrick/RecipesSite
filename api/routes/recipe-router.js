@@ -25,6 +25,19 @@ const ReadAllByIngredient = (app) => {
         }
     })
 }
+const ReadAllByType = (app) => {
+    app.get('/api/recipes/type/:type', async (req,res) => {
+        try{
+            const data = await Recipe.find({ Type: req.params.type });
+            if(data) res.json(data);
+            else res.json("No Matches");
+        }
+        catch(err)
+        {
+            res.err(err);
+        }
+    })
+}
 const ReadOneByName = (app) => {
     app.get('/api/recipes/name/:name', async (req,res) => {
         try{
@@ -62,6 +75,7 @@ const Create = (app) => {
 module.exports = {
     ReadAll,
     ReadAllByIngredient,
+    ReadAllByType,
     ReadOneByName,
     Create,
     ReadOneByID,

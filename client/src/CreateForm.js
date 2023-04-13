@@ -186,7 +186,7 @@ const CreateForm = (props) => {
             </div>
           );
         })}
-        <button onClick={handleAddIngredient}>Add</button>
+        <button onClick={handleAddIngredient}>New Ingredient</button>
       </div>
     </div>
   );
