@@ -8,20 +8,20 @@ const ReadAll = (app) => {
         }
         catch(err)
         {
-            res.err(err);
+            res.sendStatus(500);
         }
     })
 }
 const ReadAllByIngredient = (app) => {
     app.get('/api/recipes/ingredient/:name', async (req,res) => {
         try{
-            const data = await Recipe.find("Ingredients.Name", req.params.name);
+            const data = await Recipe.find({"Ingredients.Name": req.params.name});
             if(data) res.json(data);
             else res.json("No Matches");
         }
         catch(err)
         {
-            res.err(err);
+            res.sendStatus(500);
         }
     })
 }
@@ -34,7 +34,7 @@ const ReadAllByType = (app) => {
         }
         catch(err)
         {
-            res.err(err);
+            res.sendStatus(500);
         }
     })
 }
@@ -46,7 +46,7 @@ const ReadOneByName = (app) => {
             else res.json("No Matches");
         }
         catch(err){
-            res.err(err);
+            res.sendStatus(500);
         }
     })
 }
@@ -58,7 +58,7 @@ const ReadOneByID = (app) => {
             else res.json("No Matches");
         }
         catch(err){
-            res.err(err);
+            res.sendStatus(500);
         }
     })
 }
@@ -81,16 +81,28 @@ const Update = (app) => {
         res.sendStatus(200);
     })
 }
-    const UpdateWithImage = (app) => {
-        app.put('/api/recipes/with-image/:id', async (req,res) => {
-            const newData = req.body;
-            const newImage = Buffer.from(newData.Image, 'base64');
-            const resp = await Recipe.updateOne({_id: req.params.id}, {Name: newData.Name, Type: newData.Type, Image: newImage, Ingredients: newData.Ingredients});
-            if(!resp.acknowledged){
-               res.sendStatus(500) 
-            }
-            res.sendStatus(200);
-        })
+const UpdateWithImage = (app) => {
+    app.put('/api/recipes/with-image/:id', async (req,res) => {
+        const newData = req.body;
+        const newImage = Buffer.from(newData.Image, 'base64');
+        const resp = await Recipe.updateOne({_id: req.params.id}, {Name: newData.Name, Type: newData.Type, Image: newImage, Ingredients: newData.Ingredients});
+        if(!resp.acknowledged){
+            res.sendStatus(500) 
+        }
+        res.sendStatus(200);
+    })
+}
+const Delete = (app) => {
+    app.delete('/api/recipes/:id', async (req,res) => {
+    try{
+        await Recipe.deleteOne({_id: req.params.id})
+    }
+    catch(err){
+        console.log(err);
+        res.sendStatus(500);
+    }
+    res.sendStatus(200);
+    })
 }
 
 module.exports = {
@@ -102,4 +114,5 @@ module.exports = {
     ReadOneByID,
     Update,
     UpdateWithImage,
+    Delete,
 }

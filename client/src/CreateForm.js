@@ -82,16 +82,20 @@ const CreateForm = (props) => {
   }
 
   const handleSubmit = async () => {
-    const fuckyou = await toBase64(image);
+    const b64 = await toBase64(image);
+    if(image.type === "image/png") {
+      NotificationManager.warning("Cannot store PNG files");
+      return;
+    }
     if(hasEmptyFields()) 
     {
-        NotificationManager.warning("Fill out all Fields");
+        NotificationManager.warning("Please Fill out all Fields");
         return;
     }
     const submitData = {
         Name: formData.Name,
         Type: formData.Type,
-        Image: fuckyou,
+        Image: b64,
         Ingredients: formData.Ingredients
     }
     const options = {
@@ -108,6 +112,9 @@ const CreateForm = (props) => {
       NotificationManager.success("Recipe added successfully!");
       callAPI();
       setOpen(false);
+    }
+    else{
+      NotificationManager.error("Could not add Recipe!")
     }
   }
 
@@ -137,6 +144,7 @@ const CreateForm = (props) => {
         ) : (
           <input
             type="file"
+            accept=".jpg,.jpeg,.jfif"
             name="myImage"
             onChange={(event) => {
               console.log(event.target.files[0]);

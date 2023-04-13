@@ -119,8 +119,15 @@ const EditForm = (props) => {
       setId(null);
       callAPI();
     }
+    else{
+      NotificationManager.error("Update Unsuccesful!");
+    }
   }
   else{
+    if(image.type === "image/png") {
+      NotificationManager.warning("Cannot store PNG files");
+      return;
+    }
     var imagetoSend = await filetoBase64(image);
     const submitData = {
       Name: formData.Name,
@@ -169,7 +176,22 @@ const EditForm = (props) => {
     setImageIsBase64(true);
     setId(null);
   };
-
+  const handleDeleteClick = async () => {
+    const options = {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    const res = await fetch(`http://localhost:9000/api/recipes/${id}`, options);
+    if (res.status === 200) {
+      NotificationManager.success("Recipe Deleted!");
+      setImageIsBase64(true);
+      setId(null);
+      callAPI();
+    }
+  }
   useEffect(() => {
     getInfo();
   }, []);
@@ -177,6 +199,7 @@ const EditForm = (props) => {
     <div>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <button onClick={handleClose}>Back</button>
+        <button onClick={handleDeleteClick}>Delete</button>
         <button onClick={handleSubmit}>Submit</button>
       </div>
       <div>
@@ -190,6 +213,7 @@ const EditForm = (props) => {
           <input
             type="file"
             name="myImage"
+            accept=".jpg,.jpeg,.jfif"
             onChange={(event) => {
               setImageIsBase64(false);
               setImage(event.target.files[0]);
