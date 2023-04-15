@@ -172,6 +172,13 @@ const EditDialog = (props) => {
     data.Ingredients = newList;
     setFormData(data);
   };
+  const handleRemoveIngredient = () => {
+    const data = { ...formData };
+    const ingList = [...data.Ingredients];
+    ingList.pop();
+    data.Ingredients = ingList;
+    setFormData(data);
+  }
   const handleClose = () => {
     setImageIsBase64(true);
     setId(null);
@@ -261,7 +268,8 @@ const EditDialog = (props) => {
             </div>
           );
         })}
-        <button onClick={handleAddIngredient}>New Ingredient</button>
+        <button onClick={handleAddIngredient}>Add Ingredient</button>
+        <button onClick={handleRemoveIngredient}>Remove Ingredient</button>
       </div>
     </div>
   );
