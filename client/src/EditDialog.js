@@ -14,28 +14,6 @@ const EditDialog = (props) => {
       },
     ],
   });
-  const getInfo = async () => {
-    const options = {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    try {
-      const res = await fetch(
-        `http://localhost:9000/api/recipes/${id}`,
-        options
-      );
-      const data = await res.json();
-      setFormData(data[0]);
-      setImage(
-        `data:image/png;base64,${byteArraytoBase64(data[0].Image.data)}`
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
   const byteArraytoBase64 = (data) => {
     var binary = "";
     var bytes = new Uint8Array(data);
@@ -165,7 +143,6 @@ const EditDialog = (props) => {
     setFormData(data);
   };
   const handleAddIngredient = () => {
-    console.log("here");
     const data = { ...formData };
     const ingList = [...data.Ingredients];
     const newList = ingList.concat({ Name: "", Amount: "" });
@@ -200,8 +177,30 @@ const EditDialog = (props) => {
     }
   }
   useEffect(() => {
+    const getInfo = async () => {
+      const options = {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      try {
+        const res = await fetch(
+          `http://localhost:9000/api/recipes/${id}`,
+          options
+        );
+        const data = await res.json();
+        setFormData(data[0]);
+        setImage(
+          `data:image/png;base64,${byteArraytoBase64(data[0].Image.data)}`
+        );
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getInfo();
-  });
+  },[id]);
   return (
     <div style={{backgroundColor: '#edd7e2', border: "#db1e6f .2rem solid"}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>

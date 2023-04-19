@@ -56,7 +56,6 @@ const CreateDialog = (props) => {
     setFormData(data);
   };
   const handleAddIngredient = () => {
-    console.log("here");
     const data = { ...formData };
     const ingList = [...data.Ingredients];
     const newList = ingList.concat({ Name: "", Amount: "" });
@@ -158,7 +157,6 @@ const CreateDialog = (props) => {
               name="myImage"
               style={{display: 'none'}}
               onChange={(event) => {
-                console.log(event.target.files[0]);
                 setImage(event.target.files[0]);
               }}
             />
