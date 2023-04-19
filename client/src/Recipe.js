@@ -35,19 +35,19 @@ const Recipe = (props) => {
         setMouseOver(false);
     }
     return(
-        <div data-tooltip-id='edit' data-tooltip-content='Click to Edit' onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={{display:'flex', flexDirection: 'column', alignItems:'center', backgroundColor: mouseOver && 'darkgray', cursor: 'pointer'}}>
+        <div class="recipe-style" data-tooltip-id='edit' data-tooltip-content='Click to Edit' onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={{display:'flex', flexDirection: 'column', alignItems:'center', backgroundColor: mouseOver && 'lightblue', cursor: 'pointer'}}>
             <img
               alt="not found"
               width={"100px"}
               src={`data:image/jpg;base64,${image}`}
             />
-            <div style={{width:'100%'}}>Recipe:{Name}</div>
-            <div style={{width:'100%'}}>Type:{Type}</div>
+            <div style={{width:'100%'}}>Recipe: {Name}</div>
+            <div style={{width:'100%'}}>Type: {Type}</div>
             <div style={{width:'100%'}}>{Ingredients.map((ing,index) => {
                 return(
                     <div key={index}>
-                        <div>Ingredient:{ing.Name}</div>
-                        <div>Amount:{ing.Amount}</div>
+                        <div>Ingredient: {ing.Name}</div>
+                        <div>Amount: {ing.Amount}</div>
                     </div>
                 )
             })}</div>
