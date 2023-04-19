@@ -35,7 +35,7 @@ const Recipe = (props) => {
         setMouseOver(false);
     }
     return(
-        <div class="recipe-style" data-tooltip-id='edit' data-tooltip-content='Click to Edit' onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={{display:'flex', flexDirection: 'column', alignItems:'center', backgroundColor: mouseOver && 'lightblue', cursor: 'pointer'}}>
+        <div className="recipe-style" data-tooltip-id='edit' data-tooltip-content='Click to Edit' onClick={onClick} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} style={{display:'flex', flexDirection: 'column', alignItems:'center', backgroundColor: mouseOver && 'lightblue', cursor: 'pointer'}}>
             <img
               alt="not found"
               width={"100px"}

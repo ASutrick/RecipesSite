@@ -109,21 +109,21 @@ const App = (props) => {
   return (
     <div className="App">
       <header className="App-header">Dishes & Recipes
-      <div class="row">
-        <div class="column">
-          <img class="image" src={require('./images/cookie.webp')} alt="Cookie"></img>
+      <div className="row">
+        <div className="column">
+          <img className="image" src={require('./images/cookie.webp')} alt="Cookie"></img>
         </div>
-        <div class="column">
-          <img class="image" src={require('./images/burger.png')} alt="Burger"></img>
+        <div className="column">
+          <img className="image" src={require('./images/burger.png')} alt="Burger"></img>
         </div>
-        <div class="column">
-          <img class="image" src={require('./images/cupcake2.png')} alt="Cupcake"></img>
+        <div className="column">
+          <img className="image" src={require('./images/cupcake2.png')} alt="Cupcake"></img>
         </div>
-        <div class="column">
-          <img class="image" src={require('./images/salad2.png')} alt="Salad"></img>
+        <div className="column">
+          <img className="image" src={require('./images/salad2.png')} alt="Salad"></img>
         </div>
-        <div class="column">
-          <img class="image" src={require('./images/cake.png')} alt="Cake"></img>
+        <div className="column">
+          <img className="image" src={require('./images/cake.png')} alt="Cake"></img>
         </div>
       </div>
       </header>
@@ -138,27 +138,27 @@ const App = (props) => {
             <EditDialog id={editId} setId={setEditId} callAPI={callAPI} />
           </dialog>
         )}
-        <div class="sub-text" style={{justifyContent: 'space-between'}}>
+        <div className="sub-text" style={{justifyContent: 'space-between'}}>
           <div style={{display:'flex',justifyContent: 'center'}}>
-            <button class="new-button-style" onClick={openCreateForm}>Create New Recipe!</button>
+            <button className="new-button-style" onClick={openCreateForm}>Create New Recipe!</button>
           </div>
           <p style={{display:'flex',justifyContent: 'left'}}>Search for a recipe, an ingredient, or a type:</p>
           <div style={{display:'flex',justifyContent: 'left'}}>
-            <input class="input-style" type="text" onChange={handleRecipeSearchChange} value={recipeSearch}></input>
-            <button class="small-button-style" id="home" onClick={handleRecipeSearch}>Recipe</button>
+            <input className="input-style" type="text" onChange={handleRecipeSearchChange} value={recipeSearch}></input>
+            <button className="small-button-style" id="home" onClick={handleRecipeSearch}>Recipe</button>
           </div>
           <div style={{display:'flex',justifyContent: 'left'}}>
-            <input class="input-style" type="text" onChange={handleIngredientSearchChange} value={ingredientSearch}></input>
-            <button class="small-button-style" id="home" onClick={handleIngredientSearch}>Ingredient</button>
+            <input className="input-style" type="text" onChange={handleIngredientSearchChange} value={ingredientSearch}></input>
+            <button className="small-button-style" id="home" onClick={handleIngredientSearch}>Ingredient</button>
           </div>
           <div style={{display:'flex',justifyContent: 'left'}}>
-            <input class="input-style" type="text" onChange={handleTypeSearchChange} value={typeSearch}></input>
-            <button class="small-button-style" id="home" onClick={handleTypeSearch}>Type</button>
+            <input className="input-style" type="text" onChange={handleTypeSearchChange} value={typeSearch}></input>
+            <button className="small-button-style" id="home" onClick={handleTypeSearch}>Type</button>
           </div>
-          <button class="reset-button-style" style={{display:'flex',justifyContent: 'left'}} onClick={handleResetClick}>Reset</button>
+          <button className="reset-button-style" style={{display:'flex',justifyContent: 'left'}} onClick={handleResetClick}>Reset</button>
         </div>
         <br />
-        <div class="desc-text" style={{ display: "flex" }}>
+        <div className="desc-text" style={{ display: "flex" }}>
           {data &&
             data.map((d, index) => {
               return (

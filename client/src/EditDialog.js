@@ -201,25 +201,26 @@ const EditDialog = (props) => {
   }
   useEffect(() => {
     getInfo();
-  }, []);
+  });
   return (
     <div style={{backgroundColor: '#edd7e2', border: "#db1e6f .2rem solid"}}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <button class="small-button-style" id="modal" onClick={handleClose}>Back</button>
-        <button class="small-button-style" id="modal" onClick={handleDeleteClick}>Delete</button>
-        <button class="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
+        <button className="small-button-style" id="modal" onClick={handleClose}>Back</button>
+        <button className="small-button-style" id="modal" onClick={handleDeleteClick}>Delete</button>
+        <button className="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
       </div>
-      <div class="sub-text">
+      <div className="sub-text">
         {image ? (
           <div>
             <img alt="not found" width={"100px"} src={imageIsBase64 ? image : URL.createObjectURL(image)} />
             <br />
-            <button class="small-button-style" onClick={()=>setImage(null)}>Remove</button>
+            <button className="small-button-style" onClick={()=>setImage(null)}>Remove</button>
           </div>
         ) : (
-          <label for="inputTag">
-            <span class="select-button-style">Select image</span>
+          <label htmlFor="inputTag">
+            <span className="select-button-style">Select image</span>
             <input
+              id="inputTag"
               type="file"
               name="myImage"
               accept=".jpg,.jpeg,.jfif"
@@ -234,7 +235,7 @@ const EditDialog = (props) => {
         <br />
         Name: 
         <input
-          class="input-style"
+          className="input-style"
           id="input"
           type="text"
           name="Name"
@@ -244,7 +245,7 @@ const EditDialog = (props) => {
         <br />
         Type:
         <input
-          class="input-style"
+          className="input-style"
           id="input"
           type="text"
           name="Type"
@@ -253,13 +254,13 @@ const EditDialog = (props) => {
         />
         <br />
         <br />
-        <div class="ingredients-title">Ingredients:</div>
+        <div className="ingredients-title">Ingredients:</div>
         {formData.Ingredients.map((ing, index) => {
           return (
             <div key={index}>
               Name:
               <input
-                class="input-style"
+                className="input-style"
                 id="input"
                 type="text"
                 name="ingrediantName"
@@ -269,7 +270,7 @@ const EditDialog = (props) => {
               <br />
               Amount:
               <input
-                class="input-style"
+                className="input-style"
                 id="input"
                 type="text"
                 name="ingrediantAmount"
@@ -281,8 +282,8 @@ const EditDialog = (props) => {
           );
         })}
         <div style={{justifyContent: 'space-between'}}>
-          <button class="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
-          <button class="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
+          <button className="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
+          <button className="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
         </div>
       </div>
     </div>

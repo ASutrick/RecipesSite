@@ -120,6 +120,7 @@
   transition: color 1s, background-color 1s, border-width 1s, border-color 1s;
   width: 300px;
   height: 80px;
+  cursor: pointer;
 }
 
 .select-button-style {
@@ -138,6 +139,7 @@
   margin-left: 10px;
   width: 88px;
   height: 20px;
+  cursor: pointer;
 }
 
 .small-button-style {
@@ -151,6 +153,7 @@
   transition: color 1s, background-color 1s, border-color 1s;
   width: 90px;
   height: auto;
+  cursor: pointer;
 }
 
 #home {
@@ -171,6 +174,7 @@
   font-weight: 500;
   transition: color 1s, background-color 1s, border-color 1s;
   margin-top: 1rem;
+  cursor: pointer;
 }
 
 .new-button-style:hover {

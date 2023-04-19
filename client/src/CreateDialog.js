@@ -134,10 +134,10 @@ const CreateDialog = (props) => {
   return (
     <div style={{backgroundColor: '#edd7e2', border: "#db1e6f .2rem solid"}}>
         <div style={{display:'flex',justifyContent: 'space-between'}}>
-            <button class="small-button-style" id="modal" onClick={handleClose}>Back</button>
-            <button class="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
+            <button className="small-button-style" id="modal" onClick={handleClose}>Back</button>
+            <button className="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
         </div>
-      <div class="sub-text">
+      <div className="sub-text">
         {image ? (
           <div>
             <img
@@ -146,11 +146,11 @@ const CreateDialog = (props) => {
               src={URL.createObjectURL(image)}
             />
             <br />
-            <button class="small-button-style" onClick={() => setImage(null)}>Remove</button>
+            <button className="small-button-style" onClick={() => setImage(null)}>Remove</button>
           </div>
         ) : (
-          <label for="inputTag">
-            <span class="select-button-style">Select image</span>
+          <label htmlFor="inputTag">
+            <span className="select-button-style">Select image</span>
             <input
               id="inputTag"
               type="file"
@@ -167,7 +167,7 @@ const CreateDialog = (props) => {
         <br />
         Name:
         <input
-          class="input-style"
+          className="input-style"
           id="input"
           type="text"
           name="Name"
@@ -177,7 +177,7 @@ const CreateDialog = (props) => {
         <br />
         Type:
         <input
-          class="input-style"
+          className="input-style"
           id="input"
           type="text"
           name="Type"
@@ -186,13 +186,13 @@ const CreateDialog = (props) => {
         />
         <br />
         <br />
-        <div class="ingredients-title">Ingredients:</div>
+        <div className="ingredients-title">Ingredients:</div>
         {formData.Ingredients.map((ing, index) => {
           return (
             <div key={index}>
               Name:
               <input
-                class="input-style"
+                className="input-style"
                 id="input"
                 type="text"
                 name="ingrediantName"
@@ -202,7 +202,7 @@ const CreateDialog = (props) => {
               <br />
               Amount:
               <input
-                class="input-style"
+                className="input-style"
                 id="input"
                 type="text"
                 name="ingrediantAmount"
@@ -213,8 +213,8 @@ const CreateDialog = (props) => {
             </div>
           );
         })}
-        <button class="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
-        <button class="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
+        <button className="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
+        <button className="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
       </div>
     </div>
   );
