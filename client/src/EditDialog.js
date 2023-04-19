@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NotificationManager } from "react-notifications";
 const EditDialog = (props) => {
   const { id, setId, callAPI } = props;
+
   const [image, setImage] = useState("");
   const [imageIsBase64, setImageIsBase64] = useState(true);
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ const EditDialog = (props) => {
       },
     ],
   });
+  
   const byteArraytoBase64 = (data) => {
     var binary = "";
     var bytes = new Uint8Array(data);
@@ -76,59 +78,63 @@ const EditDialog = (props) => {
       NotificationManager.warning("Fill out all Fields");
       return;
     }
-    if(imageIsBase64){
-    const submitData = {
-      Name: formData.Name,
-      Type: formData.Type,
-      Ingredients: formData.Ingredients,
-    };
-    const options = {
-      method: "PUT",
-      mode: "cors",
-      body: JSON.stringify(submitData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await fetch(`http://localhost:9000/api/recipes/${id}`, options);
-    if (res.status === 200) {
-      NotificationManager.success("Recipe Updated successfully!");
-      setImageIsBase64(true);
-      setId(null);
-      callAPI();
+    if (imageIsBase64) {
+      const submitData = {
+        Name: formData.Name,
+        Type: formData.Type,
+        Ingredients: formData.Ingredients,
+      };
+      const options = {
+        method: "PUT",
+        mode: "cors",
+        body: JSON.stringify(submitData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await fetch(
+        `http://localhost:9000/api/recipes/${id}`,
+        options
+      );
+      if (res.status === 200) {
+        NotificationManager.success("Recipe Updated successfully!");
+        setImageIsBase64(true);
+        setId(null);
+        callAPI();
+      } else {
+        NotificationManager.error("Update Unsuccesful!");
+      }
+    } else {
+      if (image.type === "image/png") {
+        NotificationManager.warning("Cannot store PNG files");
+        return;
+      }
+      var imagetoSend = await filetoBase64(image);
+      const submitData = {
+        Name: formData.Name,
+        Type: formData.Type,
+        Image: imagetoSend,
+        Ingredients: formData.Ingredients,
+      };
+      const options = {
+        method: "PUT",
+        mode: "cors",
+        body: JSON.stringify(submitData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await fetch(
+        `http://localhost:9000/api/recipes/with-image/${id}`,
+        options
+      );
+      if (res.status === 200) {
+        NotificationManager.success("Recipe Updated successfully!");
+        setImageIsBase64(true);
+        setId(null);
+        callAPI();
+      }
     }
-    else{
-      NotificationManager.error("Update Unsuccesful!");
-    }
-  }
-  else{
-    if(image.type === "image/png") {
-      NotificationManager.warning("Cannot store PNG files");
-      return;
-    }
-    var imagetoSend = await filetoBase64(image);
-    const submitData = {
-      Name: formData.Name,
-      Type: formData.Type,
-      Image: imagetoSend,
-      Ingredients: formData.Ingredients,
-    };
-    const options = {
-      method: "PUT",
-      mode: "cors",
-      body: JSON.stringify(submitData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const res = await fetch(`http://localhost:9000/api/recipes/with-image/${id}`, options);
-    if (res.status === 200) {
-      NotificationManager.success("Recipe Updated successfully!");
-      setImageIsBase64(true);
-      setId(null);
-      callAPI();
-    }
-  }
   };
   const handleIngredientAmountChange = (e, index) => {
     //create shallow copy of item
@@ -155,7 +161,7 @@ const EditDialog = (props) => {
     ingList.pop();
     data.Ingredients = ingList;
     setFormData(data);
-  }
+  };
   const handleClose = () => {
     setImageIsBase64(true);
     setId(null);
@@ -175,7 +181,8 @@ const EditDialog = (props) => {
       setId(null);
       callAPI();
     }
-  }
+  };
+
   useEffect(() => {
     const getInfo = async () => {
       const options = {
@@ -200,20 +207,44 @@ const EditDialog = (props) => {
       }
     };
     getInfo();
-  },[id]);
+  }, [id]);
+
   return (
-    <div style={{backgroundColor: '#edd7e2', border: "#db1e6f .2rem solid"}}>
+    <div style={{ backgroundColor: "#edd7e2", border: "#db1e6f .2rem solid" }}>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <button className="small-button-style" id="modal" onClick={handleClose}>Back</button>
-        <button className="small-button-style" id="modal" onClick={handleDeleteClick}>Delete</button>
-        <button className="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
+        <button className="small-button-style" id="modal" onClick={handleClose}>
+          Back
+        </button>
+        <button
+          className="small-button-style"
+          id="modal"
+          onClick={handleDeleteClick}
+        >
+          Delete
+        </button>
+        <button
+          className="small-button-style"
+          id="modal"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
       </div>
       <div className="sub-text">
         {image ? (
           <div>
-            <img alt="not found" width={"100px"} src={imageIsBase64 ? image : URL.createObjectURL(image)} />
+            <img
+              alt="not found"
+              width={"100px"}
+              src={imageIsBase64 ? image : URL.createObjectURL(image)}
+            />
             <br />
-            <button className="small-button-style" onClick={()=>setImage(null)}>Remove</button>
+            <button
+              className="small-button-style"
+              onClick={() => setImage(null)}
+            >
+              Remove
+            </button>
           </div>
         ) : (
           <label htmlFor="inputTag">
@@ -223,7 +254,7 @@ const EditDialog = (props) => {
               type="file"
               name="myImage"
               accept=".jpg,.jpeg,.jfif"
-              style={{display: 'none'}}
+              style={{ display: "none" }}
               onChange={(event) => {
                 setImageIsBase64(false);
                 setImage(event.target.files[0]);
@@ -232,7 +263,7 @@ const EditDialog = (props) => {
           </label>
         )}
         <br />
-        Name: 
+        Name:
         <input
           className="input-style"
           id="input"
@@ -280,9 +311,21 @@ const EditDialog = (props) => {
             </div>
           );
         })}
-        <div style={{justifyContent: 'space-between'}}>
-          <button className="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
-          <button className="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
+        <div style={{ justifyContent: "space-between" }}>
+          <button
+            className="reset-button-style"
+            id="modal"
+            onClick={handleAddIngredient}
+          >
+            Add Ingredient
+          </button>
+          <button
+            className="reset-button-style"
+            id="modal"
+            onClick={handleRemoveIngredient}
+          >
+            Remove Ingredient
+          </button>
         </div>
       </div>
     </div>

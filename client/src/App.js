@@ -49,7 +49,7 @@ const App = (props) => {
     setTypeSearch(e.target.value);
   };
   const handleRecipeSearch = async () => {
-    if(recipeSearch === "") return;
+    if (recipeSearch === "") return;
     const options = {
       method: "GET",
       mode: "cors",
@@ -58,15 +58,18 @@ const App = (props) => {
       },
     };
     try {
-      const res = await fetch(`http://localhost:9000/api/recipes/name/${recipeSearch}`, options);
+      const res = await fetch(
+        `http://localhost:9000/api/recipes/name/${recipeSearch}`,
+        options
+      );
       const data = await res.json();
       setData(data);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   const handleIngredientSearch = async () => {
-    if(ingredientSearch === "") return;
+    if (ingredientSearch === "") return;
     const options = {
       method: "GET",
       mode: "cors",
@@ -75,15 +78,18 @@ const App = (props) => {
       },
     };
     try {
-      const res = await fetch(`http://localhost:9000/api/recipes/ingredient/${ingredientSearch}`, options);
+      const res = await fetch(
+        `http://localhost:9000/api/recipes/ingredient/${ingredientSearch}`,
+        options
+      );
       const data = await res.json();
       setData(data);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   const handleTypeSearch = async () => {
-    if(typeSearch === "") return;
+    if (typeSearch === "") return;
     const options = {
       method: "GET",
       mode: "cors",
@@ -92,40 +98,64 @@ const App = (props) => {
       },
     };
     try {
-      const res = await fetch(`http://localhost:9000/api/recipes/type/${typeSearch}`, options);
+      const res = await fetch(
+        `http://localhost:9000/api/recipes/type/${typeSearch}`,
+        options
+      );
       const data = await res.json();
       setData(data);
     } catch (err) {
       console.log(err);
     }
-  }
+  };
   const handleResetClick = async () => {
     const reset = "";
     setRecipeSearch(reset);
     setIngredientSearch(reset);
     setTypeSearch(reset);
     await callAPI();
-  }
+  };
   return (
     <div className="App">
-      <header className="App-header">Dishes & Recipes
-      <div className="row">
-        <div className="column">
-          <img className="image" src={require('./images/cookie.webp')} alt="Cookie"></img>
+      <header className="App-header">
+        Dishes & Recipes
+        <div className="row">
+          <div className="column">
+            <img
+              className="image"
+              src={require("./images/cookie.webp")}
+              alt="Cookie"
+            ></img>
+          </div>
+          <div className="column">
+            <img
+              className="image"
+              src={require("./images/burger.png")}
+              alt="Burger"
+            ></img>
+          </div>
+          <div className="column">
+            <img
+              className="image"
+              src={require("./images/cupcake2.png")}
+              alt="Cupcake"
+            ></img>
+          </div>
+          <div className="column">
+            <img
+              className="image"
+              src={require("./images/salad2.png")}
+              alt="Salad"
+            ></img>
+          </div>
+          <div className="column">
+            <img
+              className="image"
+              src={require("./images/cake.png")}
+              alt="Cake"
+            ></img>
+          </div>
         </div>
-        <div className="column">
-          <img className="image" src={require('./images/burger.png')} alt="Burger"></img>
-        </div>
-        <div className="column">
-          <img className="image" src={require('./images/cupcake2.png')} alt="Cupcake"></img>
-        </div>
-        <div className="column">
-          <img className="image" src={require('./images/salad2.png')} alt="Salad"></img>
-        </div>
-        <div className="column">
-          <img className="image" src={require('./images/cake.png')} alt="Cake"></img>
-        </div>
-      </div>
       </header>
       <div className="App-body">
         {createFormOpen && (
@@ -138,24 +168,67 @@ const App = (props) => {
             <EditDialog id={editId} setId={setEditId} callAPI={callAPI} />
           </dialog>
         )}
-        <div className="sub-text" style={{justifyContent: 'space-between'}}>
-          <div style={{display:'flex',justifyContent: 'center'}}>
-            <button className="new-button-style" onClick={openCreateForm}>Create New Recipe!</button>
+        <div className="sub-text" style={{ justifyContent: "space-between" }}>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <button className="new-button-style" onClick={openCreateForm}>
+              Create New Recipe!
+            </button>
           </div>
-          <p style={{display:'flex',justifyContent: 'left'}}>Search for a recipe, an ingredient, or a type:</p>
-          <div style={{display:'flex',justifyContent: 'left'}}>
-            <input className="input-style" type="text" onChange={handleRecipeSearchChange} value={recipeSearch}></input>
-            <button className="small-button-style" id="home" onClick={handleRecipeSearch}>Recipe</button>
+          <p style={{ display: "flex", justifyContent: "left" }}>
+            Search for a recipe, an ingredient, or a type:
+          </p>
+          <div style={{ display: "flex", justifyContent: "left" }}>
+            <input
+              className="input-style"
+              type="text"
+              onChange={handleRecipeSearchChange}
+              value={recipeSearch}
+            ></input>
+            <button
+              className="small-button-style"
+              id="home"
+              onClick={handleRecipeSearch}
+            >
+              Recipe
+            </button>
           </div>
-          <div style={{display:'flex',justifyContent: 'left'}}>
-            <input className="input-style" type="text" onChange={handleIngredientSearchChange} value={ingredientSearch}></input>
-            <button className="small-button-style" id="home" onClick={handleIngredientSearch}>Ingredient</button>
+          <div style={{ display: "flex", justifyContent: "left" }}>
+            <input
+              className="input-style"
+              type="text"
+              onChange={handleIngredientSearchChange}
+              value={ingredientSearch}
+            ></input>
+            <button
+              className="small-button-style"
+              id="home"
+              onClick={handleIngredientSearch}
+            >
+              Ingredient
+            </button>
           </div>
-          <div style={{display:'flex',justifyContent: 'left'}}>
-            <input className="input-style" type="text" onChange={handleTypeSearchChange} value={typeSearch}></input>
-            <button className="small-button-style" id="home" onClick={handleTypeSearch}>Type</button>
+          <div style={{ display: "flex", justifyContent: "left" }}>
+            <input
+              className="input-style"
+              type="text"
+              onChange={handleTypeSearchChange}
+              value={typeSearch}
+            ></input>
+            <button
+              className="small-button-style"
+              id="home"
+              onClick={handleTypeSearch}
+            >
+              Type
+            </button>
           </div>
-          <button className="reset-button-style" style={{display:'flex',justifyContent: 'left'}} onClick={handleResetClick}>Reset</button>
+          <button
+            className="reset-button-style"
+            style={{ display: "flex", justifyContent: "left" }}
+            onClick={handleResetClick}
+          >
+            Reset
+          </button>
         </div>
         <br />
         <div className="desc-text" style={{ display: "flex" }}>
@@ -163,13 +236,13 @@ const App = (props) => {
             data.map((d, index) => {
               return (
                 <Recipe
-                  key= {index}
-                  Id= {d._id}
-                  setEditId= {setEditId}
-                  Name= {d.Name}
-                  Image= {d.Image.data}
-                  Type= {d.Type}
-                  Ingredients= {d.Ingredients}
+                  key={index}
+                  Id={d._id}
+                  setEditId={setEditId}
+                  Name={d.Name}
+                  Image={d.Image.data}
+                  Type={d.Type}
+                  Ingredients={d.Ingredients}
                 />
               );
             })}

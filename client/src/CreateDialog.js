@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {NotificationManager} from 'react-notifications';
+import { NotificationManager } from "react-notifications";
 const CreateDialog = (props) => {
   const { setOpen, callAPI } = props;
   const initialValues = {
@@ -68,74 +68,78 @@ const CreateDialog = (props) => {
     ingList.pop();
     data.Ingredients = ingList;
     setFormData(data);
-  }
+  };
   const handleClose = () => {
     setOpen(false);
-  }
+  };
   const hasEmptyFields = () => {
-    if(formData.Name === "" || formData.Type === "" || image == null) 
-    {
-        return true;
+    if (formData.Name === "" || formData.Type === "" || image == null) {
+      return true;
     }
     var emptyIngredient = false;
-    formData.Ingredients.forEach(ing => {
-        if(ing.Name === "" || ing.Amount === "")
-        {
-            emptyIngredient = true;
-        }
-    })
+    formData.Ingredients.forEach((ing) => {
+      if (ing.Name === "" || ing.Amount === "") {
+        emptyIngredient = true;
+      }
+    });
     return emptyIngredient;
-  }
+  };
 
   const handleSubmit = async () => {
     const b64 = await toBase64(image);
-    if(image.type === "image/png") {
+    if (image.type === "image/png") {
       NotificationManager.warning("Cannot store PNG files");
       return;
     }
-    if(hasEmptyFields()) 
-    {
-        NotificationManager.warning("Please Fill out all Fields");
-        return;
+    if (hasEmptyFields()) {
+      NotificationManager.warning("Please Fill out all Fields");
+      return;
     }
     const submitData = {
-        Name: formData.Name,
-        Type: formData.Type,
-        Image: b64,
-        Ingredients: formData.Ingredients
-    }
+      Name: formData.Name,
+      Type: formData.Type,
+      Image: b64,
+      Ingredients: formData.Ingredients,
+    };
     const options = {
-        method: 'POST',
-        mode: 'cors',         
-        body: JSON.stringify(submitData),
-        headers: {
-            "Content-Type":"application/json"
-        }           
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(submitData),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
     const res = await fetch("http://localhost:9000/api/recipes", options);
-    if(res.status === 200)
-    {
+    if (res.status === 200) {
       NotificationManager.success("Recipe added successfully!");
       callAPI();
       setOpen(false);
+    } else {
+      NotificationManager.error("Could not add Recipe!");
     }
-    else{
-      NotificationManager.error("Could not add Recipe!")
-    }
-  }
+  };
 
-  const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    });
   return (
-    <div style={{backgroundColor: '#edd7e2', border: "#db1e6f .2rem solid"}}>
-        <div style={{display:'flex',justifyContent: 'space-between'}}>
-            <button className="small-button-style" id="modal" onClick={handleClose}>Back</button>
-            <button className="small-button-style" id="modal" onClick={handleSubmit}>Submit</button>
-        </div>
+    <div style={{ backgroundColor: "#edd7e2", border: "#db1e6f .2rem solid" }}>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <button className="small-button-style" id="modal" onClick={handleClose}>
+          Back
+        </button>
+        <button
+          className="small-button-style"
+          id="modal"
+          onClick={handleSubmit}
+        >
+          Submit
+        </button>
+      </div>
       <div className="sub-text">
         {image ? (
           <div>
@@ -145,7 +149,12 @@ const CreateDialog = (props) => {
               src={URL.createObjectURL(image)}
             />
             <br />
-            <button className="small-button-style" onClick={() => setImage(null)}>Remove</button>
+            <button
+              className="small-button-style"
+              onClick={() => setImage(null)}
+            >
+              Remove
+            </button>
           </div>
         ) : (
           <label htmlFor="inputTag">
@@ -155,7 +164,7 @@ const CreateDialog = (props) => {
               type="file"
               accept=".jpg,.jpeg,.jfif"
               name="myImage"
-              style={{display: 'none'}}
+              style={{ display: "none" }}
               onChange={(event) => {
                 setImage(event.target.files[0]);
               }}
@@ -211,8 +220,20 @@ const CreateDialog = (props) => {
             </div>
           );
         })}
-        <button className="reset-button-style" id="modal" onClick={handleAddIngredient}>Add Ingredient</button>
-        <button className="reset-button-style" id="modal" onClick={handleRemoveIngredient}>Remove Ingredient</button>
+        <button
+          className="reset-button-style"
+          id="modal"
+          onClick={handleAddIngredient}
+        >
+          Add Ingredient
+        </button>
+        <button
+          className="reset-button-style"
+          id="modal"
+          onClick={handleRemoveIngredient}
+        >
+          Remove Ingredient
+        </button>
       </div>
     </div>
   );
