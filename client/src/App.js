@@ -108,7 +108,25 @@ const App = (props) => {
   }
   return (
     <div className="App">
-      <header className="App-header">Dishes & Recipes</header>
+      <header className="App-header">Dishes & Recipes
+      <div class="row">
+        <div class="column">
+          <img class="image" src={require('./images/cookie.webp')} alt="Cookie"></img>
+        </div>
+        <div class="column">
+          <img class="image" src={require('./images/burger.png')} alt="Burger"></img>
+        </div>
+        <div class="column">
+          <img class="image" src={require('./images/cupcake2.png')} alt="Cupcake"></img>
+        </div>
+        <div class="column">
+          <img class="image" src={require('./images/salad2.png')} alt="Salad"></img>
+        </div>
+        <div class="column">
+          <img class="image" src={require('./images/cake.png')} alt="Cake"></img>
+        </div>
+      </div>
+      </header>
       <div className="App-body">
         {createFormOpen && (
           <dialog open>
@@ -120,38 +138,38 @@ const App = (props) => {
             <EditDialog id={editId} setId={setEditId} callAPI={callAPI} />
           </dialog>
         )}
-        <div style={{justifyContent: 'space-between'}}>
-          <div style={{display:'flex',justifyContent: 'left'}}>
-            <button onClick={openCreateForm}>Create New Recipe</button>
+        <div class="sub-text" style={{justifyContent: 'space-between'}}>
+          <div style={{display:'flex',justifyContent: 'center'}}>
+            <button class="new-button-style" onClick={openCreateForm}>Create New Recipe!</button>
           </div>
-          <p style={{display:'flex',justifyContent: 'left'}}>Search:</p>
+          <p style={{display:'flex',justifyContent: 'left'}}>Search for a recipe, an ingredient, or a type:</p>
           <div style={{display:'flex',justifyContent: 'left'}}>
-            <input type="text" onChange={handleRecipeSearchChange} value={recipeSearch}></input>
-            <button onClick={handleRecipeSearch}>Recipe</button>
-          </div>
-          <div style={{display:'flex',justifyContent: 'left'}}>
-            <input type="text" onChange={handleIngredientSearchChange} value={ingredientSearch}></input>
-            <button onClick={handleIngredientSearch}>Ingredient</button>
+            <input class="input-style" type="text" onChange={handleRecipeSearchChange} value={recipeSearch}></input>
+            <button class="small-button-style" id="home" onClick={handleRecipeSearch}>Recipe</button>
           </div>
           <div style={{display:'flex',justifyContent: 'left'}}>
-            <input type="text" onChange={handleTypeSearchChange} value={typeSearch}></input>
-            <button onClick={handleTypeSearch}>Type</button>
+            <input class="input-style" type="text" onChange={handleIngredientSearchChange} value={ingredientSearch}></input>
+            <button class="small-button-style" id="home" onClick={handleIngredientSearch}>Ingredient</button>
           </div>
-          <button style={{display:'flex',justifyContent: 'left'}} onClick={handleResetClick}>Reset</button>
+          <div style={{display:'flex',justifyContent: 'left'}}>
+            <input class="input-style" type="text" onChange={handleTypeSearchChange} value={typeSearch}></input>
+            <button class="small-button-style" id="home" onClick={handleTypeSearch}>Type</button>
+          </div>
+          <button class="reset-button-style" style={{display:'flex',justifyContent: 'left'}} onClick={handleResetClick}>Reset</button>
         </div>
         <br />
-        <div style={{ display: "flex" }}>
+        <div class="desc-text" style={{ display: "flex" }}>
           {data &&
             data.map((d, index) => {
               return (
                 <Recipe
-                  key={index}
-                  Id={d._id}
-                  setEditId={setEditId}
-                  Name={d.Name}
-                  Image={d.Image.data}
-                  Type={d.Type}
-                  Ingredients={d.Ingredients}
+                  key= {index}
+                  Id= {d._id}
+                  setEditId= {setEditId}
+                  Name= {d.Name}
+                  Image= {d.Image.data}
+                  Type= {d.Type}
+                  Ingredients= {d.Ingredients}
                 />
               );
             })}
